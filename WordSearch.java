@@ -1,6 +1,20 @@
+import java.util.Random;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class WordSearch {
 	private char[][] data;
-	public WordSearch(int rows, int cols) {
+	private int seed;
+	private Random randgen;
+	private ArrayList<String>wordsToAdd;
+	private ArrayList<String>wordsAdded;
+	public WordSearch(int rows, int cols, String filename) {
+		Random seed = new Random;
+		if (rows <= 0 || cols <= 0) {
+			throw new IllegalArgumentException();
+		}
 		data = new char[rows][cols];
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
