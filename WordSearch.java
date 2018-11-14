@@ -30,12 +30,12 @@ public class WordSearch {
 		}
 	}
 	public String toString() {
-		String s = "";
+		String s = "|";
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
 				s += data[i][j] + " ";
 				if (j == data[i].length - 1) {
-					s += "\n";
+					s += "|\n";
 				}
 			}
 		}
