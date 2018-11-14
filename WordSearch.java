@@ -11,7 +11,7 @@ public class WordSearch {
 	private ArrayList<String>wordsToAdd;
 	private ArrayList<String>wordsAdded;
 	public WordSearch(int rows, int cols, String filename) {
-		Random seed = new Random;
+		Random seed = new Random();
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException();
 		}
