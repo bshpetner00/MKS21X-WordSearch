@@ -22,7 +22,7 @@ public class WordSearch {
 			}
 		}
 	}
-	private void clear() {
+	public void clear() {
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
 				data[i][j] = '_';
@@ -30,10 +30,15 @@ public class WordSearch {
 		}
 	}
 	public String toString() {
-		String s = "|";
+		String s = "| ";
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
-				s += data[i][j] + " ";
+				if (j == 0 && i > 0) {
+					s += "| " + data[i][j]+" ";
+				}
+				else {
+					s += data[i][j] + " ";
+				}
 				if (j == data[i].length - 1) {
 					s += "|\n";
 				}
