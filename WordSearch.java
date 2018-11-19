@@ -111,9 +111,7 @@ public class WordSearch {
 				}
 			}
 		}
-		String wordList = "";
-
-		s += "\n Words: ";
+		s += "\nWords: " + wordsAdded + " Seed: " + seed;
 		return s;
 	}
 	public boolean addWord(String word, int row, int col, int rInc, int cInc) {
