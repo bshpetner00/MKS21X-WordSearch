@@ -31,6 +31,7 @@ public class WordSearch {
 			throw new IllegalArgumentException("File not found.");
 		}
 		addAllWords();
+		fill();
 	}
 	public WordSearch(int rows, int cols, String filename, int seedling) {
 		seed = seedling;
@@ -57,6 +58,7 @@ public class WordSearch {
 			throw new IllegalArgumentException("File not found.");
 		}
 		addAllWords();
+		fill();
 	}
 	public WordSearch(int rows, int cols, String filename, int seedling, boolean key) {
 		seed = seedling;
@@ -83,6 +85,9 @@ public class WordSearch {
 			throw new IllegalArgumentException("File not found.");
 		}
 		addAllWords();
+		if (!key) {
+			fill();
+		}
 	}
 	public void clear() {
 		for (int i = 0; i < data.length; i++) {
@@ -142,28 +147,28 @@ public class WordSearch {
       return this.wordsToAdd;
     }
 	public void addAllWords() {
-		try {
-			int i = 0;
-	 		while (wordsToAdd.size() > 0) {
-	 			String word = this.getWordsToAdd().get(i);
-	 			boolean done = false;
-	 			for (int j = 0; j < 1000 && !done; j++) {
-	 				int r = Math.abs(randgen.nextInt() % data.length);
-	 				int c = Math.abs(randgen.nextInt() % data[0].length);
-	 				int rI = randgen.nextInt() % 2;
-	 				int cI = randgen.nextInt() % 2;
-	 				if (addWord(word, r, c, rI, cI)) {
-	 					done = true;
-	 					wordsAdded.add(word);
-	 					wordsToAdd.remove(word);
-	 					i++;
-	 				}
+	 	for (String word : this.getWordsToAdd()) {
+	 		boolean done = false;
+	 		for (int j = 0; j < 1000 && !done; j++) {
+	 			int r = Math.abs(randgen.nextInt() % data.length);
+	 			int c = Math.abs(randgen.nextInt() % data[0].length);
+	 			int rI = randgen.nextInt() % 2;
+	 			int cI = randgen.nextInt() % 2;
+	 			if (addWord(word, r, c, rI, cI)) {
+	 				done = true;
+	 				wordsAdded.add(word);
 	 			}
-	 			wordsToAdd.remove(word);
-	 			i++;
 	 		}
 	 	}
-	 	catch(IndexOutOfBoundsException e) {}
+	}
+	public void fill() {
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				if (data[i][j] == '_') {
+					data[i][j] = (char)(Math.abs(randgen.nextInt() % 26) + 65);
+				}
+			}
+		}
 	}
 	public static void main(String[]args){
     	System.out.println(Arrays.toString(args));
