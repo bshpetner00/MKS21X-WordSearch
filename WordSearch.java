@@ -60,7 +60,7 @@ public class WordSearch {
 		addAllWords();
 		fill();
 	}
-	public WordSearch(int rows, int cols, String filename, int seedling, boolean key) {
+	public WordSearch(int rows, int cols, String filename, int seedling, String key) {
 		seed = seedling;
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException("Your dimensions don't make no sense");
@@ -85,7 +85,7 @@ public class WordSearch {
 			throw new IllegalArgumentException("File not found.");
 		}
 		addAllWords();
-		if (!key) {
+		if (key != "key") {
 			fill();
 		}
 	}
@@ -169,6 +169,64 @@ public class WordSearch {
 		}
 	}
 	public static void main(String[]args){
-    	System.out.println(Arrays.toString(args));
+		System.out.println("Thank you for participating in the beta. You should know what to do considering that you devised this assignment but if you happen to make any mistakes my handy error messages should sort you out real nice.");
+    	try {
+    		if (args.length <= 2) {
+    			System.out.println("You need at least three arguments.");
+    			System.exit(1);
+    		}
+    		else if (args.length == 3) {
+    			int rows = Integer.parseInt(args[0]);
+    			int cols = Integer.parseInt(args[1]);
+    			if (rows < 0 || cols < 0) {
+    				System.out.println("Why would you try to make negative rows or columns?");
+    				System.exit(1);
+    			}
+    			String file = args[2];
+    			WordSearch x = new WordSearch(rows,cols,file);
+    			System.out.println(x.toString());
+    		}
+    		else if (args.length == 4) {
+    			int rows = Integer.parseInt(args[0]);
+    			int cols = Integer.parseInt(args[1]);
+    			if (rows < 0 || cols < 0) {
+    				System.out.println("Why would you try to make negative rows or columns?");
+    				System.exit(1);
+    			}
+    			String file = args[2];
+    			int seed = Integer.parseInt(args[3]);
+    			if (seed < 0 || seed > 10000) {
+    				System.out.println("Seed must be between 0 and 10000 inclusive.");
+    				System.exit(1);
+    			}
+    			WordSearch x = new WordSearch(rows,cols,file,seed);
+    			System.out.println(x.toString());
+    		}
+    		else if (args.length == 5) {
+    			int rows = Integer.parseInt(args[0]);
+    			int cols = Integer.parseInt(args[1]);
+    			if (rows < 0 || cols < 0) {
+    				System.out.println("Why would you try to make negative rows or columns?");
+    				System.exit(1);
+    			}
+    			String file = args[2];
+    			int seed = Integer.parseInt(args[3]);
+    			String keebler = args[4];
+    			WordSearch x = new WordSearch(rows,cols,file,seed,keebler);
+    			System.out.println(x.toString());
+    		}
+    	}
+    	catch(NegativeArraySizeException e) {
+    		System.out.println("You can't create a negative sized array. Try again with positive numbers");
+    		System.exit(1);
+    	}
+    	catch(ArrayIndexOutOfBoundsException e) {
+    		System.out.println("You can't size the array like that. Try again with positive numbers.");
+    		System.exit(1);
+    	}
+    	catch(NumberFormatException e) {
+    		System.out.println("Integers only!!!");
+    		System.exit(1);
+    	}
   	}
 }
