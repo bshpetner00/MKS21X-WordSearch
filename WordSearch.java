@@ -4,8 +4,8 @@ public class WordSearch {
 	private char[][] data;
 	private int seed;
 	private Random randgen;
-	private ArrayList<String>wordsToAdd;
-	private ArrayList<String>wordsAdded;
+	public ArrayList<String>wordsToAdd;
+	public ArrayList<String>wordsAdded;
 	public WordSearch(int rows, int cols, String filename) {
 		seed = (int)(Math.random()*10000);
 		if (rows <= 0 || cols <= 0) {
@@ -28,8 +28,9 @@ public class WordSearch {
 			}
 		}
 		catch(FileNotFoundException e) {
-			IllegalArgumentException("File not found.");
+			throw new IllegalArgumentException("File not found.");
 		}
+		addAllWords();
 	}
 	public WordSearch(int rows, int cols, String filename, int seedling) {
 		seed = seedling;
@@ -53,11 +54,12 @@ public class WordSearch {
 			}
 		}
 		catch(FileNotFoundException e) {
-			IllegalArgumentException("File not found.");
+			throw new IllegalArgumentException("File not found.");
 		}
+		addAllWords();
 	}
 	public WordSearch(int rows, int cols, String filename, int seedling, boolean key) {
-		seed = (int)(Math.random()*10000);
+		seed = seedling;
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException("Your dimensions don't make no sense");
 		}
@@ -78,8 +80,9 @@ public class WordSearch {
 			}
 		}
 		catch(FileNotFoundException e) {
-			IllegalArgumentException("File not found.");
+			throw new IllegalArgumentException("File not found.");
 		}
+		addAllWords();
 	}
 	public void clear() {
 		for (int i = 0; i < data.length; i++) {
@@ -135,8 +138,32 @@ public class WordSearch {
 		}
 		return true;
 	}
-	public boolean addAllWords() {
-
+	public ArrayList<String> getWordsToAdd() {
+      return this.wordsToAdd;
+    }
+	public void addAllWords() {
+		try {
+			int i = 0;
+	 		while (wordsToAdd.size() > 0) {
+	 			String word = this.getWordsToAdd().get(i);
+	 			boolean done = false;
+	 			for (int j = 0; j < 1000 && !done; j++) {
+	 				int r = Math.abs(randgen.nextInt() % data.length);
+	 				int c = Math.abs(randgen.nextInt() % data[0].length);
+	 				int rI = randgen.nextInt() % 2;
+	 				int cI = randgen.nextInt() % 2;
+	 				if (addWord(word, r, c, rI, cI)) {
+	 					done = true;
+	 					wordsAdded.add(word);
+	 					wordsToAdd.remove(word);
+	 					i++;
+	 				}
+	 			}
+	 			wordsToAdd.remove(word);
+	 			i++;
+	 		}
+	 	}
+	 	catch(IndexOutOfBoundsException e) {}
 	}
 	public static void main(String[]args){
     	System.out.println(Arrays.toString(args));
