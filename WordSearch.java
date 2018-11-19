@@ -211,14 +211,9 @@ public class WordSearch {
     			}
     			String file = args[2];
     			int seed = Integer.parseInt(args[3]);
-    			if (args[4].equals("key")) {
-    				WordSearch x = new WordSearch(rows,cols,file,seed,true);
-    				System.out.println(x.toString());
-    			}
-    			else {
-    				WordSearch x = new WordSearch(rows,cols,file,seed,false);
-    				System.out.println(x.toString());
-    			}
+    			String keebler = args[4];
+    			WordSearch x = new WordSearch(rows,cols,file,seed,keebler);
+    			System.out.println(x.toString());
     		}
     	}
     	catch(NegativeArraySizeException e) {
