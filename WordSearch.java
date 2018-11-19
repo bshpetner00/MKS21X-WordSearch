@@ -26,11 +26,11 @@ public class WordSearch {
 		}
 	}
 	public String toString() {
-		String s = "|";
+		String s = "| ";
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
 				if (j == 0 && i > 0) {
-					s += "|" + data[i][j]+" ";
+					s += "| " + data[i][j]+" ";
 				}
 				else {
 					s += data[i][j] + " ";
@@ -40,47 +40,35 @@ public class WordSearch {
 				}
 			}
 		}
+		String wordList = "";
+
+		s += "\n Words: ";
 		return s;
 	}
-	public boolean addWordHorizontal (String word, int row, int col) {
-		if ((word.length() + col) > data[row].length ) {
+	public boolean addWord(String word, int row, int col, int rInc, int cInc) {
+		if (rInc == 0 && cInc == 0) {
 			return false;
 		}
-		for (int i = 0; i < word.length(); i++) {
-			if (word.charAt(i) != data[row][col+i] && data[row][col+i] != '_') {
+		int length = word.length();
+		if (length + row > data.length && rInc == 1) {
+			return false;
+		}
+		else if (row - length < -1 && rInc == -1) {
+			return false;
+		}
+		if (length + col > data[0].length && cInc == 1) {
+			return false; 
+		}
+		else if (col - length < -1 && cInc == -1) {
+			return false;
+		}
+		for (int i = 0; i < length; i++) {
+			if (word.charAt(i) != data[row + rInc*i][col + cInc*i] && data[row + rInc*i][col + cInc*i] != '_') {
 				return false;
 			}
 		}
-		for (int i = 0; i < word.length();i++) {
-			data[row][col+i] = word.charAt(i);
-		}
-		return true;
-	}
-	public boolean addWordVertical(String word, int row, int col) {
-		if ((word.length()+row) > data[col].length) {
-			return false;
-		}
-		for (int i = 0; i < word.length(); i++) {
-			if (word.charAt(i) != data[row+i][col] && data[row+i][col] != '_') {
-				return false;
-			}
-		}
-		for (int i = 0; i < word.length(); i++) {
-			data[row+i][col] = word.charAt(i);
-		}
-		return true;
-	}
-	public boolean addWordDiagonal(String word, int row, int col) {
-		if (((word.length() + col) > data[row].length) || (word.length()+row) > data[col].length) {
-			return false;
-		}
-		for (int i = 0; i < word.length(); i++) {
-			if (word.charAt(i) != data[row+i][col+i] && data[row+i][col+i] != '_') {
-				return false;
-			}
-		}
-		for (int i = 0; i < word.length(); i++) {
-			data[row+i][col+i] = word.charAt(i);
+		for (int i = 0; i < length; i++) {
+			data[row + rInc*i][col + cInc*i] = word.charAt(i);
 		}
 		return true;
 	}
