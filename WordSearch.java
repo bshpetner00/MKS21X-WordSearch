@@ -1,9 +1,5 @@
-import java.util.Random;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
-
+import java.util.*;
+import java.io.*;
 public class WordSearch {
 	private char[][] data;
 	private int seed;
@@ -30,11 +26,11 @@ public class WordSearch {
 		}
 	}
 	public String toString() {
-		String s = "| ";
+		String s = "|";
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
 				if (j == 0 && i > 0) {
-					s += "| " + data[i][j]+" ";
+					s += "|" + data[i][j]+" ";
 				}
 				else {
 					s += data[i][j] + " ";
@@ -88,5 +84,7 @@ public class WordSearch {
 		}
 		return true;
 	}
-
+	public static void main(String[]args){
+    	System.out.println(Arrays.toString(args));
+  	}
 }
