@@ -7,15 +7,78 @@ public class WordSearch {
 	private ArrayList<String>wordsToAdd;
 	private ArrayList<String>wordsAdded;
 	public WordSearch(int rows, int cols, String filename) {
-		Random seed = new Random();
+		seed = (int)(Math.random()*10000);
 		if (rows <= 0 || cols <= 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Your dimensions don't make no sense");
 		}
 		data = new char[rows][cols];
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 				data[i][j] = '_';
 			}
+		}
+		randgen = new Random(seed);
+		wordsToAdd = new ArrayList<>();
+		wordsAdded = new ArrayList<>();
+		try {
+			File juul = new File(filename);
+			Scanner myle = new Scanner(juul);
+			while (myle.hasNext()) {
+				wordsToAdd.add(myle.next().toUpperCase());
+			}
+		}
+		catch(FileNotFoundException e) {
+			IllegalArgumentException("File not found.");
+		}
+	}
+	public WordSearch(int rows, int cols, String filename, int seedling) {
+		seed = seedling;
+		if (rows <= 0 || cols <= 0) {
+			throw new IllegalArgumentException("Your dimensions don't make no sense");
+		}
+		data = new char[rows][cols];
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				data[i][j] = '_';
+			}
+		}
+		randgen = new Random(seed);
+		wordsToAdd = new ArrayList<>();
+		wordsAdded = new ArrayList<>();
+		try {
+			File juul = new File(filename);
+			Scanner myle = new Scanner(juul);
+			while (myle.hasNext()) {
+				wordsToAdd.add(myle.next().toUpperCase());
+			}
+		}
+		catch(FileNotFoundException e) {
+			IllegalArgumentException("File not found.");
+		}
+	}
+	public WordSearch(int rows, int cols, String filename, int seedling, boolean key) {
+		seed = (int)(Math.random()*10000);
+		if (rows <= 0 || cols <= 0) {
+			throw new IllegalArgumentException("Your dimensions don't make no sense");
+		}
+		data = new char[rows][cols];
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				data[i][j] = '_';
+			}
+		}
+		randgen = new Random(seed);
+		wordsToAdd = new ArrayList<>();
+		wordsAdded = new ArrayList<>();
+		try {
+			File juul = new File(filename);
+			Scanner myle = new Scanner(juul);
+			while (myle.hasNext()) {
+				wordsToAdd.add(myle.next().toUpperCase());
+			}
+		}
+		catch(FileNotFoundException e) {
+			IllegalArgumentException("File not found.");
 		}
 	}
 	public void clear() {
@@ -71,6 +134,9 @@ public class WordSearch {
 			data[row + rInc*i][col + cInc*i] = word.charAt(i);
 		}
 		return true;
+	}
+	public boolean addAllWords() {
+
 	}
 	public static void main(String[]args){
     	System.out.println(Arrays.toString(args));
