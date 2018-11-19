@@ -60,7 +60,7 @@ public class WordSearch {
 		addAllWords();
 		fill();
 	}
-	public WordSearch(int rows, int cols, String filename, int seedling, String key) {
+	public WordSearch(int rows, int cols, String filename, int seedling, boolean key) {
 		seed = seedling;
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException("Your dimensions don't make no sense");
@@ -126,7 +126,7 @@ public class WordSearch {
 			return false;
 		}
 		if (length + col > data[0].length && cInc == 1) {
-			return false; 
+			return false;
 		}
 		else if (col - length < -1 && cInc == -1) {
 			return false;
@@ -211,9 +211,14 @@ public class WordSearch {
     			}
     			String file = args[2];
     			int seed = Integer.parseInt(args[3]);
-    			String keebler = args[4];
-    			WordSearch x = new WordSearch(rows,cols,file,seed,keebler);
-    			System.out.println(x.toString());
+    			if (args[4].equals("key")) {
+    				WordSearch x = new WordSearch(rows,cols,file,seed,true);
+    				System.out.println(x.toString());
+					}
+					else {
+						WordSearch x = new WordSearch(rows,cols,file,seed);
+	    			System.out.println(x.toString());
+					}
     		}
     	}
     	catch(NegativeArraySizeException e) {
